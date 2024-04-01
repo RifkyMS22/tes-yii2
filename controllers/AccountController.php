@@ -21,7 +21,7 @@ class AccountController extends Controller
         return [
             'access' => [
                 'class' => \yii\filters\AccessControl::class,
-                'only' => ['index'], // Tambahkan aksi yang ingin Anda proteksi di sini
+                'only' => ['index'], 
                 'rules' => [
                     [
                         'allow' => true,

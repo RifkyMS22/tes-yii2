@@ -54,6 +54,9 @@ $config = [
             'identityClass' => 'app\models\Account',
             'enableAutoLogin' => true,
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
     ],
     'params' => $params,
 ];

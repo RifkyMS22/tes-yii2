@@ -21,12 +21,12 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => [ 'view', 'create', 'update', 'delete'], // Tambahkan aksi yang ingin Anda proteksi di sini
+                'only' => [ 'view', 'create', 'update', 'delete'],
                 'rules' => [
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['admin'], // Hanya izinkan pengguna dengan peran admin
+                        'roles' => ['@'],
                         'denyCallback' => function ($rule, $action) {
                             throw new \yii\web\ForbiddenHttpException('You are not allowed to access this page.');
                         }

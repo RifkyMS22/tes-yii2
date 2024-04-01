@@ -7,6 +7,9 @@ use app\models\AccountSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
+use yii\web\ForbiddenHttpException;
+
 
 /**
  * AccountController implements the CRUD actions for Account model.
@@ -25,7 +28,7 @@ class AccountController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'], // Hanya izinkan pengguna yang sudah login
+                        'roles' => ['@'], 
                     ],
                 ],
             ],
@@ -45,6 +48,15 @@ class AccountController extends Controller
      */
     public function actionIndex()
     {
+        // Ambil peran pengguna dari data yang masuk
+        $userRole = Yii::$app->user->identity->role;
+
+        // Verifikasi apakah pengguna memiliki peran "admin"
+        if ($userRole !== 'admin') {
+            throw new ForbiddenHttpException('You are not allowed to access this page.');
+        }
+
+        // Lanjutkan dengan logika aksi Anda
         $searchModel = new AccountSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -53,6 +65,7 @@ class AccountController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
 
     /**
      * Displays a single Account model.
